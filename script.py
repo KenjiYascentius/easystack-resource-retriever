@@ -9,7 +9,7 @@ print("SCRIPT RUNNING")
 script_dir = os.path.dirname(os.path.abspath(__file__))
 dotenv_path = os.path.join(script_dir, ".env") 
 
-load_dotenv(dotenv_path)
+load_dotenv(dotenv_path,override=True)
 
 keystone_url = os.getenv("KEYSTONE_URL")
 gnocchi_url = os.getenv("GNOCCHI_URL")
@@ -17,6 +17,7 @@ nova_url = os.getenv("NOVA_URL")
 es_name = os.getenv("ES_NAME")
 es_password = os.getenv("ES_PASSWORD")
 es_domain = os.getenv("ES_DOMAIN")
+grain = os.getenv("GRANULARITY")
 zoho_api_url = os.getenv("ZOHO_API_URL")
 
 
@@ -86,12 +87,7 @@ def get_project_details(token, project_id):
         'X-Auth-Token': token
 
     }
-
-    # print("token ",token,"project id ",project_id)
-
     response = requests.get(auth_url, headers=headers)
-
-    # print(response)
 
     if response.status_code == 200:
 
@@ -290,7 +286,7 @@ def retrieve_data():
 
                 )
 
-                params={"granularity": 86400}
+                params={"granularity": grain}
 
                 if load_from_date and start_date:
 
@@ -372,7 +368,7 @@ def retrieve_data():
 
                                 "date": date_part,  # Add the date field
 
-                                #  "time": time_part,  # Add the time field
+                                "time": time_part,  # Add the time field
 
                                 "granularity": granularity,
 
@@ -481,7 +477,7 @@ def import_to_zoho():
 
 
 def main():
-    retrieve_data()
+    #retrieve_data()
     import_to_zoho()
 
 
