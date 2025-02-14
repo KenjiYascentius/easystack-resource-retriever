@@ -286,11 +286,12 @@ def retrieve_data():
 
                 )
 
-                params={"granularity": grain}
+                params={"granularity": 86400}
 
                 if load_from_date and start_date:
 
                     params['start'] = start_date
+                    params["granularity"] =  grain
                 
 
                 metric_response = requests.get(metric_url, headers=headers,params=params)
@@ -477,7 +478,7 @@ def import_to_zoho():
 
 
 def main():
-    #retrieve_data()
+    retrieve_data()
     import_to_zoho()
 
 
