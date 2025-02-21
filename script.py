@@ -367,6 +367,8 @@ def retrieve_data():
 
                                 "timestamp": timestamp,
 
+                                "datetime": f"{date_part}, {time_part}",
+
                                 "date": date_part,  # Add the date field
 
                                 "time": time_part,  # Add the time field
