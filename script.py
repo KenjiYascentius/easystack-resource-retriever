@@ -424,41 +424,6 @@ def retrieve_data():
 
         print(f"Updated last sync timestamp to: {latest_timestamp}")
 
-
-
-# Function to get a new access token
-
-def get_zoho_token():
-
-    token_url = zoho_token_url
-
-    payload = {
-
-    "grant_type": "refresh_token",
-
-    "refresh_token": zoho_refresh_token,
-
-    "client_id": client_id,
-
-    "client_secret": client_secret,
-
-    "redirect_uri": redirect_uri
-
-}
-
-    response = requests.post(token_url, params=payload)
-
-    if response.status_code == 200:
-
-        return response.json().get('access_token')
-
-    else:
-
-        print("Failed to fetch access token:", response.json())
-
-        return None
-
-
 def import_to_zoho():
     # Specify the JSON file to send
     json_file = f"{script_dir}/output.json"  
